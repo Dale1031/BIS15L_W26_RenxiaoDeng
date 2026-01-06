@@ -2,9 +2,9 @@
 This is the Readme for a "talented student" Renxiao Deng!
 
 ##  Contact Information
-+ Phone:617-816-0641
++ Phone:xxx-xxx-xxxx
 + Email: drx1031@gmail.com
-+ Emergency Contact(My brother):857-316-9509
++ Emergency Contact:***-***-****
 
 ## Student Summary  
 Yes a sophomore in system and synthetic biology. Loves video gaming especially identity V(you should try it out)
