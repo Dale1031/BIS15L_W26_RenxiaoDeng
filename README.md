@@ -13,3 +13,17 @@ Yes a sophomore in system and synthetic biology. Loves video gaming especially i
 ##Disclaimer
 This repository will be updated according to the class progress and there are lots of files copied from
 the teacher's example(which is instructed)
+
+##Class Equations(Some helpful codechunks)
+
+Lab 2:
+getwd(), setwd()
+
+Lab 3:
+library("tidyverse"), as.factor(hot_springs$scientist)
+
+Lab 4: summary(), names(), ggplot(), scale_y_log10()
+
+Lab 5: slice_head(n=10)
+
+Lab 6: filter(veg_rich>15 | between(veg_dbh,50,60))
