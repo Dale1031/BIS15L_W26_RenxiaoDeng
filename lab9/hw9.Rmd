@@ -49,15 +49,15 @@ sydneybeaches_long <- beaches %>%
 4. Pivot the data such that the dates are column names and each beach only appears once (wide format). Name the object `sydneybeaches_wide`
 ```{r}
 sydneybeaches_wide <- sydneybeaches_long %>%
-  pivot_wider(names_from = "Date",
-              values_from = "Enterococci (cfu/100ml)")
+  pivot_wider(names_from = "date",
+              values_from = "enterococci_cfu_100ml")
 sydneybeaches_wide
 ```
 
 5. Pivot the data back so that the dates are data and not column names.
 ```{r}
 sydneybeaches_wide %>%
-  pivot_longer(-Site,
+  pivot_longer(-site,
                names_to = "date",
               values_to = "enterococci_cfu_100ml")
 ```
@@ -72,18 +72,29 @@ sydneybeaches_long <- sydneybeaches_long %>%
 Long
 ```{r}
 sydneybeaches_long %>%
-  group_by(year) %>%
+  group_by(year,site) %>%
   summarize("Mean_ml" = mean(enterococci_cfu_100ml))
 ```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
-
+annul_pollution_wide <- sydneybeaches_long %>%
+  group_by(year,site) %>%
+  summarize("Mean_ml" = mean(enterococci_cfu_100ml)) %>%
+  pivot_wider(names_from = "year",
+              values_from = "Mean_ml")
+annul_pollution_wide
 ```
 
 9. What was the most polluted beach in 2013?
-```{r}
 
+Little Bay Beach
+```{r}
+sydneybeaches_long %>%
+  group_by(year,site) %>%
+  summarize("Mean_ml" = mean(enterococci_cfu_100ml)) %>%
+  filter(year == "2013") %>%
+  arrange(desc(Mean_ml))
 ```
 
 ```{r}
@@ -92,6 +103,12 @@ sydneybeaches_long %>%
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
 ```{r}
+annul_pollution_wide %>%
+  filter(site == "Little Bay Beach")%>%
+  pivot_longer(-site,
+               names_to = "year",
+              values_to = "enterococci_cfu_100ml") %>%
+  ggplot(aes(x=year,y=enterococci_cfu_100ml))+geom_col()
 
 ```
 
