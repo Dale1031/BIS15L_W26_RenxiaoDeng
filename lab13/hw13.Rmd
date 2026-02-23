@@ -1,6 +1,6 @@
 ---
 title: "Homework 13"
-author: "Your Name Here"
+author: "Renxiao Deng"
 date: "`r Sys.Date()`"
 output:
   html_document: 
@@ -39,19 +39,35 @@ amniota <- amniota %>%
 
 3. How many total NA's are in the data set? Use the package `naniar` to produce a summary, including percentages, of missing data in each column for the `amniota` data.
 ```{r}
-amniota %>%
-  replace_with_na_all(condition = ~.x == -999) %>%
-  miss_var_summary()
+  miss_var_summary(amniota)
 ```
 
 4. Double check your replacement using `summary`. Do you see any other potential issues? If so, fix them.
 ```{r}
 
+amiota <- amniota %>% 
+    mutate(female_maturity_d = if_else(female_maturity_d < 0,
+                                    NA_real_,
+                                    female_maturity_d))
+  summary(amiota)
+
 ```
 
+
 5. Use `naniar` to visualize the number of NA's in each variable. Which variables have the most NA's?
+```{r}
+amniota %>%
+  gg_miss_var()
+```
 
 6. Calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NA's are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NA's?
+```{r}
+amniota %>%
+  group_by(class) %>%
+  select(egg_mass_g) %>%
+  miss_var_summary(order=TRUE)
+```
+
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 
