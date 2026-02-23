@@ -39,19 +39,27 @@ amniota <- amniota %>%
 
 3. How many total NA's are in the data set? Use the package `naniar` to produce a summary, including percentages, of missing data in each column for the `amniota` data.
 ```{r}
-  miss_var_summary(amniota)
+  miss_var_summary(amniota, order = TRUE)
 ```
 
 4. Double check your replacement using `summary`. Do you see any other potential issues? If so, fix them.
 ```{r}
+amniota %>%
+  select(class,no_sex_body_mass_g) %>%
+  arrange(no_sex_body_mass_g)
+```
 
-amiota <- amniota %>% 
-    mutate(female_maturity_d = if_else(female_maturity_d < 0,
-                                    NA_real_,
-                                    female_maturity_d))
-  summary(amiota)
+```{r}
+
+amniota <- amniota %>% 
+    mutate(across(where(is.numeric),~ifelse(.<= 0, NA, .)))
 
 ```
+
+```{r}
+summary(amniota)
+```
+
 
 
 5. Use `naniar` to visualize the number of NA's in each variable. Which variables have the most NA's?
