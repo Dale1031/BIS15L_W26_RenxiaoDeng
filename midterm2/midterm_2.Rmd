@@ -104,17 +104,17 @@ polar_bears %>%
 4. (6 points) How many bears were sampled in each year for both populations? Make a line plot(s) to visualize sampling by year for both populations. (hint: you will need to pull apart the date to get the year in its own column)
 ```{r}
 polar_bears<-polar_bears_NAs %>%
-  separate(capture_date,into=c("year","month","date"),sep="-")
+  separate(capture_date,into=c("year","month","date"),sep="-") %>%
+  mutate(year = as.numeric(year))
 
 table <- polar_bears %>%
-  group_by(year,popn) %>%
-  summarise(count=n())
+  count(year,popn)
 
 table %>%
-  ggplot(aes(x=year,y=count,color=popn))+
+  ggplot(aes(x=year,y=n,color=popn))+
   geom_line()+
   geom_point(shape=5)+
-  scale_x_discrete()+
+  scale_x_continuous()+
   theme(axis.text.x = element_text(angle=60, hjust=1))+
   labs(title="Bears Captured By Year for Populations",
        x="Year",
